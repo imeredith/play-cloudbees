@@ -1,0 +1,5 @@
+# Default play-cloudbees messages
+# You can specialize this file for each language.
+# For exemple, for french create a messages.fr file
+
+#play-cloudbees.name=play-cloudbees

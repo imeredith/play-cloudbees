@@ -63,7 +63,7 @@ public class CloudBees {
             } else if(command.equals("db:list")) {
                 bees.listDatabases();
             } else if(command.equals("db:create")) {
-                bees.createDatabase();
+                //bees.createDatabase();
             }
         }       
        
@@ -115,7 +115,6 @@ public class CloudBees {
     
     public void listDatabases() {
         try {
-            StaxClient client = getStaxClient();
             DatabaseListResponse res = client.databaseList();
             System.out.println("CloudBees Databases:");
             for (DatabaseInfo applicationInfo: res.getDatabases()) {
@@ -126,26 +125,6 @@ public class CloudBees {
         }
     }
     
-    public void createDatabase() {
-        try {
-            if (databaseName == null) databaseName = Helper.promptFor("Database name: ", true);
-            if (username == null) username = Helper.promptFor("Database Username (must be unique): ", true);
-            if (password == null) password = Helper.promptFor("Database Password: ", true);
-
-            if (account == null)
-                account = getConfigProperties().getProperty("bees.project.app.domain");
-            if (account == null) account = Helper.promptFor("Account name: ", true);
-
-            StaxClient client = getStaxClient();
-            DatabaseCreateResponse res = client.databaseCreate(account, databaseName, username, password);
-
-            System.out.println("database created: " + res.getDatabaseId());
-
-        } catch (Exception e) {
-            throw new RuntimeException("Application Info failure: " + e.getMessage(), e);
-        }
-
-        return true;
-    }
+  
 
 }

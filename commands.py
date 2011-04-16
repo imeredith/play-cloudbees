@@ -82,7 +82,7 @@ def after(**kargs):
         appconf.write("# to deploy on cloudbees: uncomment, replace yourProject, yourDBName, login and password by the correct values\n")
         appconf.write("# and switch to the cloudbees profile before generating the war\n")
         appconf.write("# %cloudbees.db=java:/comp/env/jdbc/yourProject\n\n")
-        appconf.write("# %cloudbees.url=jdbc:stax://yourDBName\n")
+        appconf.write("# %cloudbees.db.url=jdbc:stax://yourDBName\n")
         appconf.write("# %cloudbees.db.driver=com.staxnet.jdbc.Driver\n")
         appconf.write("# %cloudbees.db.user=login\n")
         appconf.write("# %cloudbees.db.pass=password\n\n")

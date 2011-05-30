@@ -1,7 +1,7 @@
 package play.modules.cloudbees;
 
 import play.Play;
-import net.stax.api.*;
+import com.cloudbees.api.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Properties;
 
 public class CloudBees {
-    private StaxClient client;
+    private BeesClient client;
     String domain = null;
     String message = null;
     String name = null;
     
     public CloudBees(String key, String secret) {
-        client = new StaxClient("http://api.cloudbees.com/api", key, secret, "xml", "1.0");
+        client = new BeesClient("http://api.cloudbees.com/api", key, secret, "xml", "1.0");
         
         domain = System.getProperty("bees.api.domain", Play.configuration.getProperty("bees.api.domain"));
         message = System.getProperty("bees.api.message", Play.configuration.getProperty("bees.api.message", "Play! Deployment"));

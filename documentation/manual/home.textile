@@ -8,9 +8,9 @@ Create your application with CloudBees RUN@cloud support:
 
 bc. play new appname --with=cloudbees
 
-You can also add CloudBees RUN@cloud support for an existing application by editing application.conf:
+You can also add CloudBees RUN@cloud support for an existing application by editing dependancies.yaml:
 
-bc. module.cloudbees=${play.path}/modules/cloudbees
+bc. - play -> cloudbees 0.2
 
 h2. <a>Database</a>
 

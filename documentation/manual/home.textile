@@ -17,8 +17,8 @@ h2. <a>Database</a>
 If you included CloudBees support when you created your application, the file application.conf contains sample parameters for the database settings. Otherwise, here is how you configure it:
 
 bc. db=java:/comp/env/jdbc/yourProject
-db.url=jdbc:stax://yourDataBaseName
-db.driver=com.staxnet.jdbc.Driver
+db.url=jdbc:mysql://host/db
+db.driver=com.mysql.jdbc.Driver
 db.user=login
 db.pass=password
 jpa.dialect=org.hibernate.dialect.MySQLDialect
@@ -34,8 +34,8 @@ bc. play bees:app:deploy appname --key your apikey --secret your secret \
 	
 To make it easier to deploy, those fields can be put in the projects application.conf file
 
-bc. bees.key=your apikey
-bees.secret=your secret
-bees.domain=your domain
-bees.name=your app name
+bc. bees.api.key=your apikey
+bees.api.secret=your secret
+bees.api.domain=your domain
+bees.api.name=your app name
 

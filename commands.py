@@ -20,22 +20,25 @@ for command in ["app:list", "app:deploy"]:
     COMMANDS.append("bees:%s" % command)
     COMMANDS.append("cloudbees:%s" % command)
     
+class MyOptionParser(OptionParser):
+    def error(self, msg):
+        pass
 def execute(**kargs):
     command = kargs.get("command")
     app = kargs.get("app")
     args = kargs.get("args")
     env = kargs.get("env")
-    parser = OptionParser()
+    parser = MyOptionParser()
     parser.add_option("-k", "--key", dest="key", help="Your key")
     parser.add_option("-s", "--secret", dest="secret", help="Your secret")
     parser.add_option("-d", "--app-domain", dest = "domain")
     parser.add_option("-m", "--message", dest = "message")
     parser.add_option("-n", "--app-name", dest = "name")
-    
     options, args = parser.parse_args(args)
     app.check()
     war_path = None
     java_args = []
+    
     
     bees_command = command[command.index(":")+1:]
     
@@ -74,7 +77,6 @@ def after(**kargs):
     args = kargs.get("args")
     env = kargs.get("env")
     if command == 'new':
-        print 'test'
         appconf = open(os.path.join(app.path, 'conf/application.conf'), 'a')
         appconf.write("\n")
         appconf.write("# CloudBees Database configuration\n")
@@ -82,8 +84,8 @@ def after(**kargs):
         appconf.write("# to deploy on cloudbees: uncomment, replace yourProject, yourDBName, login and password by the correct values\n")
         appconf.write("# and switch to the cloudbees profile before generating the war\n")
         appconf.write("# %cloudbees.db=java:/comp/env/jdbc/yourProject\n\n")
-        appconf.write("# %cloudbees.db.url=jdbc:stax://yourDBName\n")
-        appconf.write("# %cloudbees.db.driver=com.staxnet.jdbc.Driver\n")
+        appconf.write("# %cloudbees.db.url=jdbc:cloudbees://yourDBName\n")
+        appconf.write("# %cloudbees.db.driver=com.cloudbees.jdbc.Driver\n")
         appconf.write("# %cloudbees.db.user=login\n")
         appconf.write("# %cloudbees.db.pass=password\n\n")
         appconf.write("# %cloudbees.jpa.dialect=org.hibernate.dialect.MySQLDialect\n")
@@ -96,15 +98,15 @@ def after(**kargs):
         
 def generate_web_inf(path):
     war_dir = os.path.join(path,'war','WEB-INF')
-    stax_app_path = os.path.join(war_dir, 'stax-application.xml')
+    stax_app_path = os.path.join(war_dir, 'cloudbees-web.xml')
     if os.path.exists(stax_app_path):
         return False;
     if not os.path.exists(war_dir):
         os.makedirs(war_dir)
     f = open(stax_app_path, 'w')
     f.write("<?xml version=\"1.0\"?>\n")
-    f.write("        <stax-web-app xmlns=\"http://www.stax.net/xml/webapp/1\">\n")
-    f.write("</stax-web-app>")
+    f.write("<cloudbees-web-app xmlns=\"http://www.cloudbees.com/xml/webapp/1\">\n")
+    f.write("</cloudbees-web-app>")
     f.close()
     return True
     

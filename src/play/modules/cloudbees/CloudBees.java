@@ -16,7 +16,7 @@ public class CloudBees {
     
     public CloudBees(String key, String secret) {
         client = new BeesClient("https://api.cloudbees.com/api", key, secret, "xml", "1.0");
-        
+        client.setVerbose(false);
         domain = System.getProperty("bees.api.domain", Play.configuration.getProperty("bees.api.domain"));
         message = System.getProperty("bees.api.message", Play.configuration.getProperty("bees.api.message", "Play! Deployment"));
         name = System.getProperty("bees.api.name", Play.configuration.getProperty("bees.api.name"));    

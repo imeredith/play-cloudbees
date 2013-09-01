@@ -14,13 +14,13 @@ public class CloudBees {
     String message = null;
     String name = null;
     
-    public CloudBees(String key, String secret) {
-        client = new BeesClient("https://api.cloudbees.com/api", key, secret, "xml", "1.0");
+    public CloudBees(String server, String key, String secret) {
+        client = new BeesClient(server, key, secret, "xml", "1.0");
         client.setVerbose(false);
         domain = System.getProperty("bees.api.domain", Play.configuration.getProperty("bees.api.domain"));
         message = System.getProperty("bees.api.message", Play.configuration.getProperty("bees.api.message", "Play! Deployment"));
         name = System.getProperty("bees.api.name", Play.configuration.getProperty("bees.api.name"));    
-    }
+    }https\://api-eu.cloudbees.com/api
     
     public static void main(String [] args) {
         File root = new File(System.getProperty("application.path"));
@@ -30,10 +30,12 @@ public class CloudBees {
         
         String key = Play.configuration.getProperty("bees.api.key");
         String secret = Play.configuration.getProperty("bees.api.secret");
+        String server = Play.configuration.getProperty("bees.api.url", "https://api.cloudbees.com/api");
         
         key = System.getProperty("bees.api.key", key);
         secret = System.getProperty("bees.api.secret", secret);
-        
+        server = System.getProperty("bees.api.url", server)
+
         if(key == null || key.length() == 0) {
             System.out.println("bees.api.key is not set in application.conf or from --key");
         }
@@ -52,7 +54,7 @@ public class CloudBees {
             secret += "=";
         }
     
-        CloudBees bees = new CloudBees(key, secret);
+        CloudBees bees = new CloudBees(server,key, secret);
         
         if(args != null && args.length > 0) {
             String command = args[0];

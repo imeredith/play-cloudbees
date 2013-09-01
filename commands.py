@@ -34,6 +34,7 @@ def execute(**kargs):
     parser.add_option("-d", "--app-domain", dest = "domain")
     parser.add_option("-m", "--message", dest = "message")
     parser.add_option("-n", "--app-name", dest = "name")
+    parser.app_option("-u", "--url", dest = "url")
     options, args = parser.parse_args(args)
     app.check()
     war_path = None
@@ -42,7 +43,7 @@ def execute(**kargs):
     
     bees_command = command[command.index(":")+1:]
     
-    for item in ["key", "secret", "domain", "message", "name"]:
+    for item in ["key", "secret", "domain", "message", "name", "url"]:
         if eval('options.%s' % item) != None:
             java_args.append("-Dbees.api.%s=%s" % (item, eval('options.%s' % item)))
 

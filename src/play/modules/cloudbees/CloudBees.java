@@ -20,7 +20,7 @@ public class CloudBees {
         domain = System.getProperty("bees.api.domain", Play.configuration.getProperty("bees.api.domain"));
         message = System.getProperty("bees.api.message", Play.configuration.getProperty("bees.api.message", "Play! Deployment"));
         name = System.getProperty("bees.api.name", Play.configuration.getProperty("bees.api.name"));    
-    }https\://api-eu.cloudbees.com/api
+    }
     
     public static void main(String [] args) {
         File root = new File(System.getProperty("application.path"));
@@ -34,7 +34,7 @@ public class CloudBees {
         
         key = System.getProperty("bees.api.key", key);
         secret = System.getProperty("bees.api.secret", secret);
-        server = System.getProperty("bees.api.url", server)
+        server = System.getProperty("bees.api.url", server);
 
         if(key == null || key.length() == 0) {
             System.out.println("bees.api.key is not set in application.conf or from --key");

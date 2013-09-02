@@ -34,7 +34,7 @@ def execute(**kargs):
     parser.add_option("-d", "--app-domain", dest = "domain")
     parser.add_option("-m", "--message", dest = "message")
     parser.add_option("-n", "--app-name", dest = "name")
-    parser.app_option("-u", "--url", dest = "url")
+    parser.add_option("-u", "--url", dest = "url")
     options, args = parser.parse_args(args)
     app.check()
     war_path = None
